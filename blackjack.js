@@ -1,13 +1,49 @@
-let deck = [];
-let discardPile = [];
-let pHand = [];
-let cHand = [];
-let suitList = ["club", "heart", "diamond", "spade"];
-let faceList = ["jack", "queen", "king"];
+const newGame = document.getElementById('newGame');
+const stayButton = document.getElementById('stay');
+const hitButton  = document.getElementById('hit');
+const playHand = document.getElementById('playHand');
+const compHand = document.getElementById('compHand');
+const wins = document.getElementById('wins');
+const losses = document.getElementById('losses');
+const ties = document.getElementById('ties');
+
+const deck = [];
+const discardPile = [];
+const pHand = [];
+const cHand = [];
+const suitList = ["club", "heart", "diamond", "spade"];
+const faceList = ["jack", "queen", "king"];
 let win = 0;
 let loss = 0;
 let tie = 0;
 let gameRunning = false;
+let playerTurn = false;
+
+newGame.addEventListener('click', e =>
+{
+    if(gameRunning == false)
+    {
+        playHand.innerHTML = "";
+        compHand.innerHTML = "";
+        startGame();
+
+    }
+})
+
+stayButton.addEventListener('click', e =>
+{
+    playerTurn = false;
+    compTurn();
+})
+
+hitButton.addEventListener('click', e =>
+{
+    if(playerTurn == true)
+    {
+        deal(pHand);
+        console.log(pHand);
+    }
+})
 
 for(let i = 0; i < 4; i++)
 {
@@ -37,12 +73,29 @@ function deal(hand){
         refillDeck();
     }
     hand.push(deck.pop())
-    if(checkScore(pHand) > 21)
+    if (hand === cHand)
     {
+        let temp = document.createElement('div');
+        temp.innerText = cHand[cHand.length - 1].face;
+        temp.classList.add('card');
+        compHand.append(temp);
+    }
+    else
+    {
+        let temp = document.createElement('div');
+        temp.innerText = pHand[pHand.length - 1].face;
+        temp.classList.add('card');
+        playHand.append(temp);
+    }
+    if(checkScore(pHand) > 21)
+    { 
+        playerTurn = false;
         endGame();
+       
     }
     else if (checkScore(hand) === 21)
     {
+        playerTurn = false;
         endGame();
     }
 }
@@ -89,28 +142,28 @@ function compareScore()
 {
     if (checkScore(cHand) === checkScore(pHand))
     {
-        tie++;
+        ties.innerText++;;
         gameRunning = false;
     }
     else if (checkScore(cHand) > checkScore(pHand))
     {
-        loss++;
+        losses.innerText++;;
         gameRunning = false;
     }
     else
     {
-        win++;
+        wins.innerText++;
         gameRunning = false;
     }
 }
 
 function endGame(){
     if(checkScore(pHand) > 21){
-        loss++;
+        losses.innerText++;;
         gameRunning = false;
     }
     else if (checkScore(cHand) > 21){
-        win++;
+        wins.innerText++;
         gameRunning = false;
     }
     else 
@@ -121,7 +174,7 @@ function endGame(){
 
 function startGame()
 {
-    if(gameRunning = false)
+    if(gameRunning == false)
     {
         gameRunning = true;
         discard();
@@ -130,31 +183,15 @@ function startGame()
         deal(pHand);
         deal(cHand);
         deal(pHand);
+        console.log(pHand)
+        console.log(cHand)
         if(gameRunning = true)
         {
             deal(cHand);
+            playerTurn = true;
+            console.log(pHand)
+            console.log(cHand)
         }
     }
 
 }
-
-deal(pHand);
-deal(pHand);
-
-deal(cHand);
-deal(cHand);
-
-console.log(pHand);
-console.log(cHand);
-
-compTurn();
-
-console.log(cHand);
-console.log("Wins " + win);
-console.log("Losses " + loss);
-console.log("Ties " + tie);
-
-console.log(checkScore(pHand));
-console.log(checkScore(cHand));
-
-console.log(pHand);
