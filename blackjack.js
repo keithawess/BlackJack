@@ -4,6 +4,10 @@ let pHand = [];
 let cHand = [];
 let suitList = ["club", "heart", "diamond", "spade"];
 let faceList = ["jack", "queen", "king"];
+let win = 0;
+let loss = 0;
+let tie = 0;
+let gameRunning = false;
 
 for(let i = 0; i < 4; i++)
 {
@@ -33,6 +37,14 @@ function deal(hand){
         refillDeck();
     }
     hand.push(deck.pop())
+    if(checkScore(pHand) > 21)
+    {
+        endGame();
+    }
+    else if (checkScore(hand) === 21)
+    {
+        endGame();
+    }
 }
 
 function discard(){
@@ -64,6 +76,68 @@ function checkScore(hand) {
     return total;
 }
 
+function compTurn() {
+    while(checkScore(cHand) < 17)
+    {
+        deal(cHand);
+    }
+
+    endGame();
+}
+
+function compareScore()
+{
+    if (checkScore(cHand) === checkScore(pHand))
+    {
+        tie++;
+        gameRunning = false;
+    }
+    else if (checkScore(cHand) > checkScore(pHand))
+    {
+        loss++;
+        gameRunning = false;
+    }
+    else
+    {
+        win++;
+        gameRunning = false;
+    }
+}
+
+function endGame(){
+    if(checkScore(pHand) > 21){
+        loss++;
+        gameRunning = false;
+    }
+    else if (checkScore(cHand) > 21){
+        win++;
+        gameRunning = false;
+    }
+    else 
+    {
+        compareScore();
+    }
+}
+
+function startGame()
+{
+    if(gameRunning = false)
+    {
+        gameRunning = true;
+        discard();
+        refillDeck();
+    
+        deal(pHand);
+        deal(cHand);
+        deal(pHand);
+        if(gameRunning = true)
+        {
+            deal(cHand);
+        }
+    }
+
+}
+
 deal(pHand);
 deal(pHand);
 
@@ -72,6 +146,13 @@ deal(cHand);
 
 console.log(pHand);
 console.log(cHand);
+
+compTurn();
+
+console.log(cHand);
+console.log("Wins " + win);
+console.log("Losses " + loss);
+console.log("Ties " + tie);
 
 console.log(checkScore(pHand));
 console.log(checkScore(cHand));
