@@ -1,85 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="blackjack.css">
+    <link rel="stylesheet" href="blackjack.css" />
 </head>
+
 <body>
-    <div class="verification textCenter hide" id= "verification">
+    <div class="verification textCenter" id="verification">
         <div>
             <div>Enter your name and birthday:</div>
-            <div class="flex justifyCenter">
-                <label class= "margin5" for="name">Name:</label>
-                <input class= "margin5" type="text" id="name" placeholder="Name">
-                <label class= "margin5" for= "birthMonths">Birthday :</label>
-                <select class= "margin5" id= "birthMonths">
-                    <option value="0">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                    <option value="4">May</option>
-                    <option value="5">June</option>
-                    <option value="6">July</option>
-                    <option value="7">August</option>
-                    <option value="8">September</option>
-                    <option value="9">October</option>
-                    <option value="10">November</option>
-                    <option value="11">December</option>
-                </select>
-                <select class= "margin5" id="birthDay">
+            <div class="flex rowWrap justifyCenter">
+                <label class="margin5" for="name">Name:</label>
+                <input class="margin5" type="text" id="name" placeholder="Name" />
+                <div>
+                    <label class="margin5" for="birthMonths">Birthday :</label>
+                    <select class="margin5" id="birthMonths">
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                    <select class="margin5" id="birthDay"></select>
+                    <select class="margin5" id="birthYear"></select>
 
-                </select>
-                <select class= "margin5" id="birthYear">
-
-                </select>
-
-                <input class= "margin5" id="submit" type="submit">
+                    <input class="margin5" id="submit" type="submit" />
+                </div>
             </div>
         </div>
-        <div class='bgRed hide textWhite' id='messageBox'>
+        <div class="bgRed hide textWhite" id="messageBox"></div>
+    </div>
+
+    <div class="newGameContainer flex">
+        <button id="newGame">New Game</button>
+        <div class="margin5">
+            <input type="radio" id="oneDeck" name="deckSize" value="1" checked />
+            <label for="oneDeck">One Deck</label><br />
+        </div>
+        <div class="margin5">
+            <input type="radio" id="twoDeck" name="deckSize" value="2" />
+            <label for="twoDeck">Two Decks</label><br />
+        </div>
+        <div class="margin5">
+            <input type="radio" id="threeDeck" name="deckSize" value="3" />
+            <label for="threeDeck">Three Decks</label>
         </div>
     </div>
+    <img class="draw z1 left80" src="images/blue_back.png" />
+    <img class="draw z2 left82" src="images/blue_back.png" />
+    <img class="draw z3 left84" id="almostEmpty" src="images/blue_back.png" />
+    <img class="draw z4 left86 topHalf" src="images/blue_back.png" />
+    <img class="draw z5 left88 topHalf" src="images/blue_back.png" />
+    <img class="draw z6 left90 topHalf" src="images/blue_back.png" />
 
-<div class="newGameContainer flex">
-    <button id="newGame">New Game</button>
-    <div class= "margin5">
-        <input type="radio" id="oneDeck" name="deckSize" value="1" checked>
-        <label for="oneDeck">One Deck</label><br>
+    <div class="textCenter marginTop15">
+        Wins: <span id="wins">0</span> Losses: <span id="losses">0</span> Ties:
+        <span id="ties">0</span>
     </div>
-    <div class= "margin5">
-        <input type="radio" id="twoDeck" name="deckSize" value="2">
-        <label for="twoDeck">Two Decks</label><br>
-    </div>
-    <div class= "margin5">
-        <input type="radio" id="threeDeck" name="deckSize" value="3">
-        <label for="threeDeck">Three Decks</label>
-    </div>
-</div>
-    <img class="draw z1 left80" src="images/blue_back.png">
-    <img class="draw z2 left82" src="images/blue_back.png">
-    <img class="draw z3 left84" id="almostEmpty" src="images/blue_back.png">
-    <img class="draw z4 left86 topHalf" src="images/blue_back.png">
-    <img class="draw z5 left88 topHalf" src="images/blue_back.png">
-    <img class="draw z6 left90 topHalf" src="images/blue_back.png">
-
-    <div class="textCenter marginTop15"> Wins: <span id="wins">0</span> Losses: <span id="losses">0</span> Ties: <span id="ties">0</span></div>
     <div>
-        <div class="textCenter">Computer Total: <span class="hide" id="computerTotal">0</span></div>
-        <div class= "hand flex marginBot50 width80Percent center" id= "compHand">
-
+        <div class="textCenter">
+            Computer Total: <span class="hide" id="computerTotal">0</span>
         </div>
-        <div class= "textCenter">Current total: <span id="playerTotal">0</span></div>
-        <div class= "hand flex width80Percent center marginBot5" id= "playHand">
+        <div class="hand flex marginBot50 width80Percent center" id="compHand"></div>
+        <div class="textCenter">
+            Player total: <span id="playerTotal">0</span>
         </div>
-        <div class= "flex spaceEvenly width80Percent center">
-            <button class="playerButton " id="stay">Stay</button>
+        <div class="hand flex width80Percent center marginBot5" id="playHand"></div>
+        <div class="flex spaceEvenly width80Percent center">
+            <button class="playerButton" id="stay">Stay</button>
             <button class="playerButton" id="hit">Hit</button>
         </div>
     </div>
-    
+
     <script src="blackjack.js"></script>
 </body>
+
 </html>
