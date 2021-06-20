@@ -43,8 +43,21 @@
         </div>
     </div>
 
-
+<div class="newGameContainer flex">
     <button id="newGame">New Game</button>
+    <div class= "margin5">
+        <input type="radio" id="oneDeck" name="deckSize" value="1" checked>
+        <label for="oneDeck">One Deck</label><br>
+    </div>
+    <div class= "margin5">
+        <input type="radio" id="twoDeck" name="deckSize" value="2">
+        <label for="twoDeck">Two Decks</label><br>
+    </div>
+    <div class= "margin5">
+        <input type="radio" id="threeDeck" name="deckSize" value="3">
+        <label for="threeDeck">Three Decks</label>
+    </div>
+</div>
     <img class="draw z1 left80" src="images/blue_back.png">
     <img class="draw z2 left82" src="images/blue_back.png">
     <img class="draw z3 left84" id="almostEmpty" src="images/blue_back.png">
@@ -52,10 +65,10 @@
     <img class="draw z5 left88 topHalf" src="images/blue_back.png">
     <img class="draw z6 left90 topHalf" src="images/blue_back.png">
 
-    <div class="textCenter"> Wins: <span id="wins">0</span> Losses: <span id="losses">0</span> Ties: <span id="ties">0</span></div>
+    <div class="textCenter marginTop15"> Wins: <span id="wins">0</span> Losses: <span id="losses">0</span> Ties: <span id="ties">0</span></div>
     <div>
         <div class="textCenter">Computer Total: <span class="hide" id="computerTotal">0</span></div>
-        <div class= "hand flex marginBot75 width80Percent center" id= "compHand">
+        <div class= "hand flex marginBot50 width80Percent center" id= "compHand">
 
         </div>
         <div class= "textCenter">Current total: <span id="playerTotal">0</span></div>

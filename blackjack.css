@@ -24,9 +24,9 @@ img{
     margin-right: auto;
 }
 
-.marginBot75
+.marginBot50
 {
-    margin-bottom: 75px;
+    margin-bottom: 50px;
 }
 
 .marginBot5{
@@ -54,11 +54,21 @@ img{
     background-color: white;
 }
 
+.newGameContainer{
+    width: 100%;
+}
+
+.marginTop15{
+    margin-top: 15px;
+}
+
 .draw{
     width: auto;
     border: 1px black solid;
     height: 50px;
     position: fixed;
+    top:25px;
+    display: none;
 }
 
 .z1{
@@ -142,6 +152,9 @@ img{
         height: 180px;
         line-height: 180px;
     }
+    .draw{
+        display: block;
+    }
 }
 
 @media (min-width: 950px)
@@ -159,5 +172,8 @@ img{
     }
     .playerButton{
         height: 60px;
+    }
+    .draw{
+        display: block;
     }
 }

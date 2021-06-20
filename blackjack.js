@@ -18,7 +18,6 @@ const messageBox = document.getElementById('messageBox');
 const topHalf = document.getElementsByClassName('topHalf');
 const amlostEmpty = document.getElementById('almostEmpty');
 
-
 const deck = [];
 const discardPile = [];
 const pHand = [];
@@ -33,6 +32,7 @@ let loss = 0;
 let tie = 0;
 let gameRunning = false;
 let playerTurn = false;
+let currentDeckSize = 0;
 
 for(let i = 1; i <= 31; i++)
 {
@@ -73,8 +73,37 @@ submit.addEventListener('click', e => {
 
 newGame.addEventListener('click', e =>
 {
+    let amount = document.querySelector('input[name="deckSize"]:checked').value;
+
+    if(currentDeckSize != amount && gameRunning == false)
+    {
+        discard();
+        emptyDeck(discardPile);
+        emptyDeck(deck);
+        currentDeckSize = amount;
+        for(let k = 0; k < amount; k++)
+        {
+            for(let i = 0; i < 4; i++)
+            {
+                for(let j = 2; j <= 10; j++)
+                {
+                    deck.push({value: j, face: j, suit: suitList[i]})
+                }
+
+                for(let j = 0; j < 3; j++)
+                {
+                    deck.push({value: 10, face: faceList[j], suit: suitList[i]})
+                }
+
+                deck.push({value: 11, face: "A", suit: suitList[i]})
+            }
+        }
+        shuffle(deck);
+    }
     if(gameRunning == false)
     {
+        console.log(deck)
+        discard();
         playHand.innerHTML = "";
         compHand.innerHTML = "";
         startGame();
@@ -99,21 +128,6 @@ hitButton.addEventListener('click', e =>
         console.log(pHand);
     }
 })
-
-for(let i = 0; i < 4; i++)
-{
-    for(let j = 2; j <= 10; j++)
-    {
-        deck.push({value: j, face: j, suit: suitList[i]})
-    }
-
-    for(let j = 0; j < 3; j++)
-    {
-        deck.push({value: 10, face: faceList[j], suit: suitList[i]})
-    }
-
-    deck.push({value: 11, face: "A", suit: suitList[i]})
-}
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -286,7 +300,6 @@ function startGame()
     {
         gameRunning = true;
         computerTotal.classList.add('hide');
-        discard();
         adjustAces(deck);
     
         deal(pHand);
@@ -344,4 +357,12 @@ function getAge (birth) {
         return difference - 1;
     }
         
+}
+
+function emptyDeck(deckName)
+{
+    while(deckName.length > 0)
+    {
+        deckName.pop();
+    }
 }
