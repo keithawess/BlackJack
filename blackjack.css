@@ -1,17 +1,21 @@
 .card{
-    flex-basis: calc(100% / 5 - 10px);
-    height: 90%;
+    flex-basis: calc(100% / 6 - 10px);
+    height: 100px;
     line-height: 100px;
     text-align: center;
-    margin: 10px 5px 10px 5px;
-    border: black 2px solid;
+    margin: 5px;
+}
+
+img{
+    height: 100px;
+    width: auto;
 }
 
 .hand{
     margin-top: 5px;
     flex-flow: row wrap;
     justify-content: center;
-    height: 115px;
+    min-height: 115px;
     border: black 2px solid;
 }
 
@@ -46,8 +50,56 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    z-index: 1;
+    z-index: 7;
     background-color: white;
+}
+
+.draw{
+    width: auto;
+    border: 1px black solid;
+    height: 50px;
+    position: fixed;
+}
+
+.z1{
+    z-index: 1;
+}
+.z2{
+    z-index: 2;
+}
+.z3{
+    z-index: 3;
+}
+.z4{
+    z-index: 4;
+}
+.z5{
+    z-index: 5;
+}
+.z6{
+    z-index: 6;
+}
+
+.left80{
+    left: 80%;
+}
+
+.left82{
+    left: calc(80% + 2px);
+}
+
+.left84{
+    left: calc(80% + 4px);
+}
+
+.left86{
+    left: calc(80% + 6px);
+}
+.left88{
+    left: calc(80% + 8px);
+}
+.left90{
+    left: calc(80% + 10px);
 }
 
 .margin5{
@@ -71,7 +123,7 @@
 }
 
 .width80Percent{
-    width: 80%;
+    width: 90%;
 }
 .playerButton{
     width: 40%;
@@ -81,10 +133,13 @@
 @media (min-width: 600px)
 {
    .hand{
-    height: 200px;
+        min-height: 200px;
     } 
-
+    img{
+        height: 180px;
+    }
     .card{
+        height: 180px;
         line-height: 180px;
     }
 }
@@ -92,23 +147,17 @@
 @media (min-width: 950px)
 {
     .hand{
-        height: 250px;
+        min-height: 250px;
+    }
+    img{
+        height: 225px;
     }
     .card{
+        height: 225px;
         line-height: 225px;
+        margin: 10px 5px 10px 5px;
     }
     .playerButton{
         height: 60px;
-    }
-}
-
-@media (min-width: 1150px)
-{
-    .hand{
-        height: 300px;
-    }
-
-    .card{
-        line-height: 270px;
     }
 }

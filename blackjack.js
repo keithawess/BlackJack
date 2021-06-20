@@ -15,14 +15,16 @@ const birthDays = document.getElementById('birthDay');
 const birthYears = document.getElementById('birthYear');
 const submit = document.getElementById('submit');
 const messageBox = document.getElementById('messageBox');
+const topHalf = document.getElementsByClassName('topHalf');
+const amlostEmpty = document.getElementById('almostEmpty');
 
 
 const deck = [];
 const discardPile = [];
 const pHand = [];
 const cHand = [];
-const suitList = ["club", "heart", "diamond", "spade"];
-const faceList = ["jack", "queen", "king"];
+const suitList = ["C", "H", "D", "S"];
+const faceList = ["J", "Q", "K"];
 
 let name;
 let age;
@@ -110,7 +112,7 @@ for(let i = 0; i < 4; i++)
         deck.push({value: 10, face: faceList[j], suit: suitList[i]})
     }
 
-    deck.push({value: 11, face: "ace", suit: suitList[i]})
+    deck.push({value: 11, face: "A", suit: suitList[i]})
 }
 
 function shuffle(array) {
@@ -126,20 +128,38 @@ function deal(hand){
         refillDeck();
     }
     hand.push(deck.pop())
+
+    if (deck.length < 26)
+    {
+        for(let i = 0; i < topHalf.length; i++)
+        {
+            topHalf[i].classList.replace('draw','hide');
+        }
+    }
+    else if (deck.length < 15)
+    {
+        amlostEmpty.classList.replace('draw','hide');
+    }
+
     if (hand === cHand)
     {
         let temp = document.createElement('div');
-        temp.classList.add('bgRed');
         temp.classList.add('card');
+        temp.classList.add('compCard');
         temp.value = cHand[cHand.length - 1].face;
         compHand.append(temp);
+        let pic = document.createElement('img');
+        pic.src = `images/blue_back.png`;
+        temp.append(pic);
     }
     else
     {
         let temp = document.createElement('div');
-        temp.innerText = pHand[pHand.length - 1].face;
         temp.classList.add('card');
         playHand.append(temp);
+        let pic = document.createElement('img');
+        pic.src = `images/${pHand[pHand.length - 1].face}${pHand[pHand.length - 1].suit}.png`;
+        temp.append(pic);
     }
     if(checkScore(hand) > 21)
     { 
@@ -171,7 +191,13 @@ function refillDeck()
     {
         deck.push(discardPile.pop());
     }
+    amlostEmpty.classList.replace('hide', 'draw');
+    for(let i = 0; i < topHalf.length; i++)
+    {
+        topHalf[i].classList.replace('hide','draw');
+    }
     shuffle(deck);
+
 }
 
 function checkScore(hand) {
@@ -229,11 +255,13 @@ function compareScore()
 }
 
 function endGame(){
-    let temp = document.getElementsByClassName('bgRed');
-    while(temp.length > 0)
+    let temp = document.getElementsByClassName('compCard');
+    for(let i = 0; i < temp.length; i++)
     {
-        temp[0].innerText = temp[0].value;
-        temp[0].classList.remove('bgRed');
+        temp[i].innerHTML = "";
+        let pic = document.createElement('img');
+        pic.src = `images/${cHand[i].face}${cHand[i].suit}.png`;
+        temp[i].append(pic);
     }
     computerTotal.classList.remove('hide');
 
@@ -259,7 +287,6 @@ function startGame()
         gameRunning = true;
         computerTotal.classList.add('hide');
         discard();
-        refillDeck();
         adjustAces(deck);
     
         deal(pHand);
@@ -283,7 +310,7 @@ function adjustAces(hand, total){
     {
         for(let i = 0; i < hand.length; i++)
         {
-            if (hand[i].face == 'ace')
+            if (hand[i].face == 'A')
             {
                 hand[i].value = 11;
             }
@@ -292,7 +319,7 @@ function adjustAces(hand, total){
     else{
         for(let i = 0; i < hand.length; i++)
         {
-            if (hand[i].face == "ace" && hand[i].value == 11 && total > 21)
+            if (hand[i].face == "A" && hand[i].value == 11 && total > 21)
             {
                 hand[i].value = 1;
                 total -= 10;
