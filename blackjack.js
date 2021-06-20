@@ -143,14 +143,14 @@ function deal(hand){
     }
     hand.push(deck.pop())
 
-    if (deck.length < 26)
+    if (deck.length < (currentDeckSize * 52) / 2)
     {
         for(let i = 0; i < topHalf.length; i++)
         {
             topHalf[i].classList.replace('draw','hide');
         }
     }
-    else if (deck.length < 15)
+    else if (deck.length < (currentDeckSize * 52) / 4)
     {
         amlostEmpty.classList.replace('draw','hide');
     }
