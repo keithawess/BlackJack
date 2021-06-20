@@ -8,8 +8,12 @@ const losses = document.getElementById('losses');
 const ties = document.getElementById('ties');
 const playerTotal = document.getElementById('playerTotal');
 const computerTotal = document.getElementById('computerTotal');
+const verif = document.getElementById('verification');
+const nameBox = document.getElementById('name');
+const birthMonths = document.getElementById('birthMonths')
 const birthDays = document.getElementById('birthDay');
 const birthYears = document.getElementById('birthYear');
+const submit = document.getElementById('submit');
 
 const deck = [];
 const discardPile = [];
@@ -17,6 +21,9 @@ const pHand = [];
 const cHand = [];
 const suitList = ["club", "heart", "diamond", "spade"];
 const faceList = ["jack", "queen", "king"];
+
+let name;
+let age;
 let win = 0;
 let loss = 0;
 let tie = 0;
@@ -38,7 +45,22 @@ for(let i = 2021; i > 1900; i--)
 }
 
 
-
+submit.addEventListener('click', e => {
+    if (nameBox.value)
+    {
+        let birthday = new Date(birthYears.value, birthMonths.value, birthDays.value);
+        age = getAge(birthday);
+    
+        if(age < 16)
+        {
+            window.location.replace("https://disneynow.com/all-games");
+        }
+        else
+        {
+            verif.classList.add('hide');
+        }
+    }
+})
 
 newGame.addEventListener('click', e =>
 {
@@ -174,7 +196,10 @@ function compTurn() {
         deal(cHand);
     }
 
-    endGame();
+    if(gameRunning == true)
+    {
+        endGame();
+    }
 }
 
 function compareScore()
@@ -268,4 +293,21 @@ function adjustAces(hand, total){
         }
         return total;
     }
+}
+
+function getAge (birth) {
+    let current = new Date();
+    let currentYear = current.getFullYear();
+    let difference = currentYear - birth.getFullYear();
+    var currentYearBirthday = new Date(currentYear, birth.getMonth(), birth.getDate());
+    var afterBirthday = (current >= currentYearBirthday);
+
+    if (afterBirthday){
+        return difference;
+    }
+    else
+    {
+        return difference - 1;
+    }
+        
 }

@@ -33,9 +33,22 @@
 }
 
 .verification{
+    margin:auto;
     position: fixed;
     width: 100vw;
     height: 100vh;
     z-index: 1;
     background-color: white;
+}
+
+.margin5{
+    margin: 5px;
+}
+
+.flex{
+    display: flex;
+}
+
+.justifyCenter{
+    justify-content: center;
 }
