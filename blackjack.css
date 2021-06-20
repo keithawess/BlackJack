@@ -10,11 +10,23 @@
 .hand{
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: 5px;
     margin-bottom: 100px;
     display: flex;
     flex-flow: row wrap;
     width: 840px;
     height: 215px;
     border: black 2px solid;
+}
+
+.textCenter{
+    text-align: center;
+}
+
+.hide{
+    display: none;
+}
+
+.bgRed{
+    background-color: red;
 }

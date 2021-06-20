@@ -6,6 +6,8 @@ const compHand = document.getElementById('compHand');
 const wins = document.getElementById('wins');
 const losses = document.getElementById('losses');
 const ties = document.getElementById('ties');
+const playerTotal = document.getElementById('playerTotal');
+const computerTotal = document.getElementById('computerTotal');
 
 const deck = [];
 const discardPile = [];
@@ -26,19 +28,22 @@ newGame.addEventListener('click', e =>
         playHand.innerHTML = "";
         compHand.innerHTML = "";
         startGame();
-
     }
 })
 
 stayButton.addEventListener('click', e =>
 {
-    playerTurn = false;
-    compTurn();
+    if(gameRunning == true && playerTurn == true)
+    {
+        playerTurn = false;
+        compTurn();
+    }
+
 })
 
 hitButton.addEventListener('click', e =>
 {
-    if(playerTurn == true)
+    if(playerTurn == true && gameRunning == true)
     {
         deal(pHand);
         console.log(pHand);
@@ -68,7 +73,7 @@ function shuffle(array) {
 }
 
 function deal(hand){
-    if (deal.length < 10)
+    if (deck.length < 10)
     {
         refillDeck();
     }
@@ -76,8 +81,9 @@ function deal(hand){
     if (hand === cHand)
     {
         let temp = document.createElement('div');
-        temp.innerText = cHand[cHand.length - 1].face;
+        temp.classList.add('bgRed');
         temp.classList.add('card');
+        temp.value = cHand[cHand.length - 1].face;
         compHand.append(temp);
     }
     else
@@ -87,13 +93,13 @@ function deal(hand){
         temp.classList.add('card');
         playHand.append(temp);
     }
-    if(checkScore(pHand) > 21)
+    if(checkScore(hand) > 21)
     { 
         playerTurn = false;
         endGame();
        
     }
-    else if (checkScore(hand) === 21)
+    else if (checkScore(hand) === 21 && hand.length == 2)
     {
         playerTurn = false;
         endGame();
@@ -126,6 +132,20 @@ function checkScore(hand) {
     {
         total += hand[i].value;
     }
+    if (total > 21)
+    {
+        total = adjustAces(hand, total);
+    }
+    if (hand === pHand)
+    {
+        playerTotal.innerText = total;
+    }
+    else
+    {
+        computerTotal.innerText = total;
+    }
+   
+
     return total;
 }
 
@@ -158,6 +178,15 @@ function compareScore()
 }
 
 function endGame(){
+    let temp = document.getElementsByClassName('bgRed');
+    while(temp.length > 0)
+    {
+        temp[0].innerText = temp[0].value;
+        temp[0].classList.remove('bgRed');
+    }
+    computerTotal.classList.remove('hide');
+
+
     if(checkScore(pHand) > 21){
         losses.innerText++;;
         gameRunning = false;
@@ -177,15 +206,17 @@ function startGame()
     if(gameRunning == false)
     {
         gameRunning = true;
+        computerTotal.classList.add('hide');
         discard();
         refillDeck();
+        adjustAces(deck);
     
         deal(pHand);
         deal(cHand);
         deal(pHand);
         console.log(pHand)
         console.log(cHand)
-        if(gameRunning = true)
+        if(gameRunning == true)
         {
             deal(cHand);
             playerTurn = true;
@@ -194,4 +225,28 @@ function startGame()
         }
     }
 
+}
+
+function adjustAces(hand, total){
+    if (hand == deck)
+    {
+        for(let i = 0; i < hand.length; i++)
+        {
+            if (hand[i].face == 'ace')
+            {
+                hand[i].value = 11;
+            }
+        }
+    }
+    else{
+        for(let i = 0; i < hand.length; i++)
+        {
+            if (hand[i].face == "ace" && hand[i].value == 11 && total > 21)
+            {
+                hand[i].value = 1;
+                total -= 10;
+            }
+        }
+        return total;
+    }
 }
