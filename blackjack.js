@@ -8,6 +8,8 @@ const losses = document.getElementById('losses');
 const ties = document.getElementById('ties');
 const playerTotal = document.getElementById('playerTotal');
 const computerTotal = document.getElementById('computerTotal');
+const birthDays = document.getElementById('birthDay');
+const birthYears = document.getElementById('birthYear');
 
 const deck = [];
 const discardPile = [];
@@ -20,6 +22,23 @@ let loss = 0;
 let tie = 0;
 let gameRunning = false;
 let playerTurn = false;
+
+for(let i = 1; i <= 31; i++)
+{
+    let temp = document.createElement('option');
+    temp.innerText = i;
+    birthDays.append(temp);
+}
+
+for(let i = 2021; i > 1900; i--)
+{
+    let temp = document.createElement('option');
+    temp.innerText = i;
+    birthYears.append(temp);
+}
+
+
+
 
 newGame.addEventListener('click', e =>
 {
