@@ -1,23 +1,32 @@
 .card{
-    width: 150px;
-    height: 200px;
-    line-height: 200px;
+    flex-basis: calc(100% / 5 - 10px);
+    height: 90%;
+    line-height: 100px;
     text-align: center;
-    margin: 5px;
+    margin: 10px 5px 10px 5px;
     border: black 2px solid;
 }
 
 .hand{
-    margin-left: auto;
-    margin-right: auto;
     margin-top: 5px;
-    margin-bottom: 100px;
-    display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    width: 840px;
-    height: 215px;
+    height: 115px;
     border: black 2px solid;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.marginBot75
+{
+    margin-bottom: 75px;
+}
+
+.marginBot5{
+    margin-bottom: 5px;
 }
 
 .textCenter{
@@ -51,4 +60,55 @@
 
 .justifyCenter{
     justify-content: center;
+}
+
+.textWhite{
+    color:white;
+}
+
+.spaceEvenly{
+    justify-content: space-evenly;
+}
+
+.width80Percent{
+    width: 80%;
+}
+.playerButton{
+    width: 40%;
+    height: 40px;
+}
+
+@media (min-width: 600px)
+{
+   .hand{
+    height: 200px;
+    } 
+
+    .card{
+        line-height: 180px;
+    }
+}
+
+@media (min-width: 950px)
+{
+    .hand{
+        height: 250px;
+    }
+    .card{
+        line-height: 225px;
+    }
+    .playerButton{
+        height: 60px;
+    }
+}
+
+@media (min-width: 1150px)
+{
+    .hand{
+        height: 300px;
+    }
+
+    .card{
+        line-height: 270px;
+    }
 }

@@ -14,6 +14,8 @@ const birthMonths = document.getElementById('birthMonths')
 const birthDays = document.getElementById('birthDay');
 const birthYears = document.getElementById('birthYear');
 const submit = document.getElementById('submit');
+const messageBox = document.getElementById('messageBox');
+
 
 const deck = [];
 const discardPile = [];
@@ -59,6 +61,11 @@ submit.addEventListener('click', e => {
         {
             verif.classList.add('hide');
         }
+    }
+    else
+    {
+        messageBox.classList.remove('hide');
+        messageBox.innerText = "Please enter a name"
     }
 })
 
